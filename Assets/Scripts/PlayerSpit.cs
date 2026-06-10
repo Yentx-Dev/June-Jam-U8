@@ -8,7 +8,7 @@ public class PlayerSpit : MonoBehaviour
 {
     public int spitStrength;
     public float minSize;
-    public int maxTrash;
+    public int maxSpits;
     private float maxSize; // set to what the player is originally on start
     private float sizeDelta;
     private InputAction spitAction;
@@ -20,7 +20,7 @@ public class PlayerSpit : MonoBehaviour
     {
         spitAction = InputSystem.actions.FindAction("Spit");
         maxSize = GetComponent<Transform>().localScale.x;
-        sizeDelta = (maxSize - minSize)/(maxTrash);
+        sizeDelta = (maxSize - minSize)/(maxSpits);
         spitAction.started += context =>{
             Transform playerTransform = GetComponent<Transform>();
             float currSize = playerTransform.localScale.x;
