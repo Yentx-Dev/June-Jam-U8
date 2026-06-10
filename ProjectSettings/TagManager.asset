@@ -6,6 +6,7 @@ TagManager:
   tags:
   - surface
   - trash
+  - sticky
   layers:
   - Default
   - TransparentFX

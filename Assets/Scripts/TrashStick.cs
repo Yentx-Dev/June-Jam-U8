@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class TrashStick : MonoBehaviour
 {
-    public float stickDelay;
+    public float destroyDelay;
     //public int thrustSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,9 +39,9 @@ public class TrashStick : MonoBehaviour
         Debug.Log("Trigger");
         Rigidbody rb = GetComponent<Rigidbody>(); //Gets rigidbody component on current object
 
-        yield return new WaitForSeconds(stickDelay);
+        yield return new WaitForSeconds(destroyDelay);
         rb.isKinematic = true; //Sets rigidbody to kinematic so it will be stationary
         Destroy(gameObject, 10);
-        Debug.Log($"Object delay: {stickDelay} and destroyed in 10 secondsss");
+        Debug.Log($"Object delay: {destroyDelay} and destroyed in 10 secondsss");
     }
 }
