@@ -19,6 +19,8 @@ public class PlayerSpit : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip spitSFX;
+    public AudioClip eatSFX;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,6 +67,8 @@ public class PlayerSpit : MonoBehaviour
 
         if (currSize >= maxSize) { return; } //stops code if current size is equals to maxSize
 
+        //Play Spit SFX
+        audioSource.PlayOneShot(eatSFX, 1f);
         float newSize = Mathf.Min(maxSize, currSize + sizeDelta);
         playerTransform.localScale = new Vector3(newSize, newSize, newSize);
         UpdateUI(newSize * 10);

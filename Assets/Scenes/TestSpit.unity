@@ -1354,6 +1354,7 @@ MonoBehaviour:
   currentMass: {fileID: 1784991475}
   audioSource: {fileID: 1970866236}
   spitSFX: {fileID: 8300000, guid: 02b9c16915b641d47a1f195b87638272, type: 3}
+  eatSFX: {fileID: 8300000, guid: 08309b1317c32a04fa22593e11dc90b2, type: 3}
 --- !u!135 &7316089717291952502
 SphereCollider:
   m_ObjectHideFlags: 0
