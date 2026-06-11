@@ -15,27 +15,21 @@ public class TrashStick : MonoBehaviour
     void Start()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         rb.isKinematic = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    Rigidbody rb = (Rigidbody)GetComponent<Rigidbody>();
-        //    rb.AddRelativeForce(Vector3.forward * thrustSpeed, ForceMode.Impulse);
-        //}
+        
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-
-        if (other.CompareTag("surface")) //Checks if collided tag is "surface"
-        {
-            StartCoroutine(startStickDelay());
-        }
-
+        audioSource.PlayOneShot(splatClip, 1f);
+        //rb.isKinematic = true; //Sets rigidbody to kinematic so it will be stationary
+        StartCoroutine(startStickDelay());
     }
 
     IEnumerator startStickDelay()
@@ -43,8 +37,7 @@ public class TrashStick : MonoBehaviour
         Debug.Log("Trigger");
 
         yield return new WaitForSeconds(destroyDelay);
-        audioSource.PlayOneShot(splatClip, 1f);
-        rb.isKinematic = true; //Sets rigidbody to kinematic so it will be stationary
+        
         Destroy(gameObject);
         Debug.Log($"Object delay: {destroyDelay} and destroyed in 10 secondsss");
     }

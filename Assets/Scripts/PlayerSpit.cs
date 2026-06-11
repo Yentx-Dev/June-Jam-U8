@@ -15,7 +15,9 @@ public class PlayerSpit : MonoBehaviour
     private ThrowableTrash currTrash;
     public Transform spawnPoint;
 
-    public TextMeshProUGUI currentMass;
+    public float currentMass;
+
+    public TextMeshProUGUI massUI;
 
     public AudioSource audioSource;
     public AudioClip spitSFX;
@@ -24,19 +26,19 @@ public class PlayerSpit : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentMass = transform.localScale.x;
         spitAction = InputSystem.actions.FindAction("Spit");
-        //maxSize = GetComponent<Transform>().localScale.x;
         sizeDelta = (maxSize - minSize) / (maxSpits);
         UpdateUI(transform.localScale.x * 10);
         spitAction.started += context =>
         {
-            Transform playerTransform = GetComponent<Transform>();
-            float currSize = playerTransform.localScale.x;
-            if (currSize <= minSize) { return; } // Don't spit if at min size
+            if (currentMass <= minSize) { return; } // Don't spit if at min size
+            //Transform playerTransform = GetComponent<Transform>();
+            //currentMass = playerTransform.localScale.x;
             spitTrash();
-            float newSize = Mathf.Max(minSize, currSize - sizeDelta);
-            playerTransform.localScale = new Vector3(newSize, newSize, newSize);
-            UpdateUI(newSize * 10);
+            currentMass = Mathf.Max(minSize, currentMass - sizeDelta);
+            transform.localScale = new Vector3(currentMass, currentMass, currentMass);
+            UpdateUI(Mathf.RoundToInt(currentMass * 10));
             Debug.Log("Trash was spit");
         };
     }
@@ -62,16 +64,17 @@ public class PlayerSpit : MonoBehaviour
 
     private void eatTrash(GameObject trash)
     {
-        Transform playerTransform = GetComponent<Transform>(); //access transform component
-        float currSize = playerTransform.localScale.x; //store current size of trashbag
+        currentMass = transform.localScale.x; //store current size of trashbag
 
-        if (currSize >= maxSize) { return; } //stops code if current size is equals to maxSize
+        //Transform playerTransform = GetComponent<Transform>(); //access transform component
+
+        if (currentMass >= maxSize) { Destroy(trash);} //stops code if current size is equals to maxSize
 
         //Play Spit SFX
-        audioSource.PlayOneShot(eatSFX, 1f);
-        float newSize = Mathf.Min(maxSize, currSize + sizeDelta);
-        playerTransform.localScale = new Vector3(newSize, newSize, newSize);
-        UpdateUI(newSize * 10);
+        audioSource.PlayOneShot(eatSFX, 0.4f);
+        currentMass = Mathf.Min(maxSize, currentMass + sizeDelta);
+        transform.localScale = new Vector3(currentMass, currentMass, currentMass);
+        UpdateUI(Mathf.RoundToInt(currentMass * 10));
 
         Destroy(trash);
     }
@@ -87,9 +90,9 @@ public class PlayerSpit : MonoBehaviour
 
     private void UpdateUI(float currentSize)
     {
-        if (currentMass != null)
+        if (massUI != null)
         {
-            currentMass.text = "Mass: " + currentSize.ToString() + " KG";
+            massUI.text = "Mass: " + currentSize.ToString() + " KG";
         }
     }
 }
