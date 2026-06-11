@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpeedPuddle : MonoBehaviour
 {
-    [SerializeField] public int speedBoost;
+    [SerializeField] private int speedBoost;
+    [SerializeField] private float spawnDuration = 10f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,15 +17,19 @@ public class SpeedPuddle : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player collision");
-            PlayerController playerController = other.GetComponentInParent<PlayerController>();
+            PlayerController playerController = collision.gameObject.GetComponentInParent<PlayerController>();
             float currSpeed = playerController.getSpeed();
             StartCoroutine(playerController.speedBoost(currSpeed + speedBoost));
         }
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject, spawnDuration);
     }
 
 }

@@ -57,7 +57,7 @@ public class PlayerSpit : MonoBehaviour
         audioSource.PlayOneShot(spitSFX, 1f);
         // Throw trash
         currTrash.Throw(spawnPoint.up, spitStrength);
-        Destroy(spawnedTrash, 5);
+        Destroy(spawnedTrash, 3);
     }
 
     private void eatTrash(GameObject trash)

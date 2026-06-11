@@ -176,7 +176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9a69f433dec1a4e9f21a94571e594c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashStick
-  stickDelay: 0.1
+  destroyDelay: 0
+  audioSource: {fileID: 0}
+  splatClip: {fileID: 0}
 --- !u!114 &806184342765795403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,3 +191,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe15fc8d440e53f488c0aaff450b8376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrowableTrash
+  speedPuddle: {fileID: 2102623954737792855, guid: b270fac25bc5b514cbbc92966715c5fb, type: 3}
