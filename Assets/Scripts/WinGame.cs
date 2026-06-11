@@ -20,7 +20,7 @@ public class WinGame : MonoBehaviour
             playerController.PlayerStop();
             playerController.enabled = false;
 
-            Invoke(nameof(Win), 2f);
+            Invoke(nameof(Win), 1f);
 
             if (hasPlayed) return;
             hasPlayed = true;

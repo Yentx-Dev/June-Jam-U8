@@ -125,5 +125,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090d935e1efa36142984d6aa2e16e487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeedPuddle
-  speedBoost: 20
+  speedBoost: 10
   spawnDuration: 10

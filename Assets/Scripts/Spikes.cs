@@ -14,6 +14,8 @@ public class Spikes : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            audioSource.PlayOneShot(ripSFX);
+
             // Disables movement after colliding w obstacle
             PlayerController playerController = other.GetComponent<PlayerController>();
             playerController.PlayerStop();
@@ -23,13 +25,12 @@ public class Spikes : MonoBehaviour
 
             if (hasPlayed) return;
             hasPlayed = true;
-            audioSource.PlayOneShot(ripSFX);
         }
     }
 
     void Die()
     {
-        audioSource.PlayOneShot(loseSFX);
+        audioSource.PlayOneShot(loseSFX, 1f);
         uiManager.LoseGame();
     }
 }

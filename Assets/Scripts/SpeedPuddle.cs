@@ -17,11 +17,11 @@ public class SpeedPuddle : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            PlayerController playerController = collision.gameObject.GetComponentInParent<PlayerController>();
+            PlayerController playerController = other.gameObject.GetComponentInParent<PlayerController>();
             float currSpeed = playerController.getSpeed();
             StartCoroutine(playerController.speedBoost(currSpeed + speedBoost));
         }

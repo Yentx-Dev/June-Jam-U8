@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe15fc8d440e53f488c0aaff450b8376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrowableTrash
-  speedPuddle: {fileID: 2102623954737792855, guid: b270fac25bc5b514cbbc92966715c5fb, type: 3}
+  speedPuddle: {fileID: 1963755241689301252, guid: cd17c158e78b52945a08c0231d551155, type: 3}
 --- !u!82 &3325695170808551256
 AudioSource:
   m_ObjectHideFlags: 0
