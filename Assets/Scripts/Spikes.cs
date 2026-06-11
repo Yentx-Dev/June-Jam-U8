@@ -16,7 +16,7 @@ public class Spikes : MonoBehaviour
         {
             // Disables movement after colliding w obstacle
             PlayerController playerController = other.GetComponent<PlayerController>();
-            playerController.PlayerDie();
+            playerController.PlayerStop();
             playerController.enabled = false;
 
             Invoke(nameof(Die), 2f);

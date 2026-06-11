@@ -17,6 +17,7 @@ public class WinGame : MonoBehaviour
         {
             // Disables movement after colliding w final trash bin
             PlayerController playerController = other.GetComponent<PlayerController>();
+            playerController.PlayerStop();
             playerController.enabled = false;
 
             Invoke(nameof(Win), 2f);

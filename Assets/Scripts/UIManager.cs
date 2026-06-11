@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+    public AudioSource audioSource;
+
     void Start()
     {
         fixedCamera.Priority = 20;
@@ -31,6 +33,7 @@ public class UIManager : MonoBehaviour
         if (pauseAction.triggered && gameManager.gameStart == true)
         {
             Time.timeScale = 0f;
+            audioSource.Pause();
             pauseScreen.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -50,6 +53,7 @@ public class UIManager : MonoBehaviour
     public void ContinueGame()
     {
         Time.timeScale = 1f;
+        audioSource.UnPause();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         pauseScreen.SetActive(false);

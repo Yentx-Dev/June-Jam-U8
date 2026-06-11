@@ -18,7 +18,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float boostDuration = 1;
     [SerializeField] private Transform camera;
 
+    public AudioSource audioSource;
+    [SerializeField] private AudioClip rollSFX;
+    private bool hasPlayed = false;
+
     public Vector3 moveDirection;
+
+    private Coroutine audioFadeCoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -50,7 +56,46 @@ public class PlayerController : MonoBehaviour
         camRight.Normalize();
 
         moveDirection = (camForward * verticalMove + camRight * horizontalMove);
+        
+        bool isMoving = horizontalMove != 0 || verticalMove != 0;
 
+        // Plays rolling sfx when moving. Stops audio if not moving
+        if (isMoving)
+        {
+            if (audioFadeCoroutine != null)
+            {
+                StopCoroutine(audioFadeCoroutine);
+                audioFadeCoroutine = null;
+            }
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = rollSFX;
+                audioSource.loop = true;
+                audioSource.volume = 1f;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying && audioFadeCoroutine == null) audioFadeCoroutine = StartCoroutine(FadeOutAudio(5f)); // Fade duration
+        }
+    }
+
+    // Fade out rolling sfx over time
+    private IEnumerator FadeOutAudio(float duration)
+    {
+        float startVolume = 1f;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * (Time.deltaTime / duration);
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume; // Resets volume for next time
+        audioFadeCoroutine = null;
     }
 
     private void FixedUpdate()
@@ -58,8 +103,11 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(moveDirection * speed, ForceMode.Acceleration);
     }
 
-    public void PlayerDie()
+    public void PlayerStop()
     {
+        // Stops rolling sfx
+        audioSource.Stop();
+
         // Reset input & direction
         horizontalMove = 0f;
         verticalMove = 0f;
