@@ -1560,6 +1560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 2.5
+  camera: {fileID: 1732821202}
 --- !u!114 &7316089717291952498
 MonoBehaviour:
   m_ObjectHideFlags: 0
