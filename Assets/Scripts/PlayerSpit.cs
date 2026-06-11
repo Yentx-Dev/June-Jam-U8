@@ -2,7 +2,7 @@ using System;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using TMPro;
 public class PlayerSpit : MonoBehaviour
 {
     public int spitStrength;
@@ -15,12 +15,17 @@ public class PlayerSpit : MonoBehaviour
     private ThrowableTrash currTrash;
     public Transform spawnPoint;
 
+    public TextMeshProUGUI currentMass;
+
+    public AudioSource audioSource;
+    public AudioClip spitSFX;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         spitAction = InputSystem.actions.FindAction("Spit");
         //maxSize = GetComponent<Transform>().localScale.x;
         sizeDelta = (maxSize - minSize) / (maxSpits);
+        UpdateUI(transform.localScale.x * 10);
         spitAction.started += context =>
         {
             Transform playerTransform = GetComponent<Transform>();
@@ -29,7 +34,7 @@ public class PlayerSpit : MonoBehaviour
             spitTrash();
             float newSize = Mathf.Max(minSize, currSize - sizeDelta);
             playerTransform.localScale = new Vector3(newSize, newSize, newSize);
-            //sphereCollider.radius = newSize / maxSpits * sCollider ;
+            UpdateUI(newSize * 10);
             Debug.Log("Trash was spit");
         };
     }
@@ -45,6 +50,9 @@ public class PlayerSpit : MonoBehaviour
         // Spawn trash
         GameObject spawnedTrash = Instantiate(trashObject, spawnPoint.position, Quaternion.identity);
         currTrash = spawnedTrash.GetComponent<ThrowableTrash>();
+
+        //Play Spit SFX
+        audioSource.PlayOneShot(spitSFX, 1f);
         // Throw trash
         currTrash.Throw(spawnPoint.up, spitStrength);
         Destroy(spawnedTrash, 5);
@@ -59,6 +67,7 @@ public class PlayerSpit : MonoBehaviour
 
         float newSize = Mathf.Min(maxSize, currSize + sizeDelta);
         playerTransform.localScale = new Vector3(newSize, newSize, newSize);
+        UpdateUI(newSize * 10);
 
         Destroy(trash);
     }
@@ -69,6 +78,14 @@ public class PlayerSpit : MonoBehaviour
         {
             Debug.Log("Yum");
             eatTrash(other.gameObject);
+        }
+    }
+
+    private void UpdateUI(float currentSize)
+    {
+        if (currentMass != null)
+        {
+            currentMass.text = "Mass: " + currentSize.ToString() + " KG";
         }
     }
 }
