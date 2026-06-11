@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 public class TrashStick : MonoBehaviour
 {
     public float destroyDelay;
+    Rigidbody rb;
+
+    public AudioSource audioSource;
+    public AudioClip splatClip;
     //public int thrustSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,11 +41,11 @@ public class TrashStick : MonoBehaviour
     IEnumerator startStickDelay()
     {
         Debug.Log("Trigger");
-        Rigidbody rb = GetComponent<Rigidbody>(); //Gets rigidbody component on current object
 
         yield return new WaitForSeconds(destroyDelay);
+        audioSource.PlayOneShot(splatClip, 1f);
         rb.isKinematic = true; //Sets rigidbody to kinematic so it will be stationary
-        Destroy(gameObject, 10);
+        Destroy(gameObject);
         Debug.Log($"Object delay: {destroyDelay} and destroyed in 10 secondsss");
     }
 }
