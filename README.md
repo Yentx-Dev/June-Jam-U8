@@ -1,10 +1,10 @@
-*Instructions
+#Instructions
 1. Download project
 2. Open file and look for Build
 Run the game with the trash can icon 
 
 
-*Credits:
+#Credits:
 https://freesound.org/people/noahpardo/sounds/352405/ 
 https://youtu.be/b0QDCTLgYCg?si=HsN0-5NtAq77rrSV
 https://freesound.org/people/designerschoice/sounds/810157/
@@ -17,5 +17,5 @@ https://assetstore.unity.com/packages/2d/gui/simple-cartoon-ui-225102
 https://www.1001fonts.com/playfull-rocket-font.html
 https://sketchfab.com/3d-models/trash-bag-f0c68a0742904c0abaac94e8cd427023
 
-*PDF Slides Link:
+#PDF Slides Link:
 https://drive.google.com/file/d/1_UggCxGsOAC061fwIr7voGJEO4bEyi9G/view?usp=sharing
