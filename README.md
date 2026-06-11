@@ -18,4 +18,4 @@ https://www.1001fonts.com/playfull-rocket-font.html
 https://sketchfab.com/3d-models/trash-bag-f0c68a0742904c0abaac94e8cd427023
 
 # PDF Slides Link:
-https://drive.google.com/file/d/1_UggCxGsOAC061fwIr7voGJEO4bEyi9G/view?usp=sharing
+https://drive.google.com/file/d/1K6XC-NL6b_rGJxVG7D__-twDH5ayptBK/view?usp=sharing
