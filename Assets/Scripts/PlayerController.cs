@@ -10,15 +10,15 @@ public class PlayerController : MonoBehaviour
 {
 
     private Rigidbody rb;
-    private float horizontalMove;
-    private float verticalMove;
+    public float horizontalMove;
+    public float verticalMove;
     [SerializeField] private float speed;
     [SerializeField] private float maxSpeed = 10;
     [SerializeField] private float minSpeed = 2;
     [SerializeField] private float boostDuration = 1;
     [SerializeField] private Transform camera;
 
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -53,11 +53,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
     private void FixedUpdate()
     {
         rb.AddForce(moveDirection * speed, ForceMode.Acceleration);
+    }
+
+    public void PlayerDie()
+    {
+        // Reset input & direction
+        horizontalMove = 0f;
+        verticalMove = 0f;
+        moveDirection = Vector3.zero;
+
+        // Kill momentum
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     public IEnumerator speedBoost(float value)

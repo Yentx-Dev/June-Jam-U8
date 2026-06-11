@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,22 +9,35 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CinemachineCamera fixedCamera;
     [SerializeField] private CinemachineCamera playerCamera;
 
-    public GameObject pauseScreen;
-    public GameObject mainMenuScreen;
+    [SerializeField] private PlayerInput playerInput;
+    private InputAction pauseAction;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject mainMenuScreen;
+    public GameObject pauseScreen;
+    public GameObject winScreen;
+    public GameObject loseScreen;
+
     void Start()
     {
         fixedCamera.Priority = 20;
         playerCamera.Priority = 10;
+
+        pauseAction = playerInput.actions["Pause"];
     }
 
-    // Update is called once per frame
+    // Pause game
     void Update()
     {
-        
+        if (pauseAction.triggered && gameManager.gameStart == true)
+        {
+            Time.timeScale = 0f;
+            pauseScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
+    // Switches from fixed camera to player camera
     public void SwitchPlayerCam()
     {
         fixedCamera.Priority = 5;
@@ -32,30 +46,28 @@ public class UIManager : MonoBehaviour
         gameManager.StartGame();
     }
 
-    public void PauseGame()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            pauseScreen.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-    }
-
+    // Continue game
     public void ContinueGame()
     {
-        pauseScreen.SetActive(false);
-        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        pauseScreen.SetActive(false);
     }
 
     public void WinGame()
     {
-
+        Time.timeScale = 0f;
+        winScreen.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void LoseGame()
     {
-
+        Time.timeScale = 0f;
+        loseScreen.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

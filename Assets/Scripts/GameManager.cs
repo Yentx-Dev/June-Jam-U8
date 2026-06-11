@@ -1,22 +1,36 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private PlayerController playerController;
+
+    public bool gameStart = false;
+
+    private void Awake()
     {
-        
+        // Ensures players cannot move when in main menu scene.
+        playerController.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        Time.timeScale = 1.0f;
     }
 
     public void StartGame()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        playerController.enabled = true;
+
+        gameStart = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void RestartGame()
+    {
+        var currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 }
